@@ -26,7 +26,7 @@ const lightMode = () => {
 };
 
 const darkMode = () => {
-  state = "dark";
+  state = "dark"
   heading.style.color = "white";
   btn.style.backgroundColor = "white";
   btn.innerText = "Go Light 🌞";
