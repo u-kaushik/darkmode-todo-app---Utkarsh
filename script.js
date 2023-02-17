@@ -1,6 +1,34 @@
 // Bring in variables
 let btn = document.getElementById("button");
 const heading = document.getElementById("heading");
+const taskButton = document.querySelector(".task-input-button");
+let taskInput = document.querySelector(".task-input-text");
+
+// Button disabled on default
+taskButton.disabled = true;
+
+inputCheck = () => {
+  taskInput.onkeyup = () => {
+    //   taskButton.disabled = false;
+    // };
+    taskInput.value == ""
+      ? (taskButton.disabled = true)
+      : (taskButton.disabled = false);
+  };
+};
+inputCheck();
+
+taskButton.addEventListener("click", function (e) {
+  let task = document.querySelector(".task-input-text").value;
+  const tasksList = document.querySelector(".tasks");
+  const taskElement = document.createElement("li");
+  taskElement.classList.add("task");
+  taskElement.innerText = task;
+  tasksList.append(taskElement);
+  console.log(task);
+  taskInput.value = "";
+  e.preventDefault();
+});
 
 // Declare default state
 let state = "light";
@@ -22,15 +50,14 @@ const lightMode = () => {
   btn.style.backgroundColor = "black";
   btn.innerText = "Go Dark 🌙";
   document.body.style.backgroundColor = "white";
-  console.log(state);
 };
 
 const darkMode = () => {
-  state = "dark"
+  state = "dark";
   heading.style.color = "white";
   btn.style.backgroundColor = "white";
   btn.innerText = "Go Light 🌞";
   btn.style.color = "black";
+  taskInput.color = "white";
   document.body.style.backgroundColor = "black";
-  console.log(state);
 };

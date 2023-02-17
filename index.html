@@ -7,11 +7,19 @@
     <title>UK's Dark Mode toggle</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
     <div class="section" id="dark-mode-section">
       <h1 id="heading">What do you wanna do today?</h1>
       <button id="button">Go Dark 🌙</button>      
     </div>
+    <form>
+      <div class="task-input">
+      <input class="task-input-text" type="text" placeholder="Enter your task"/></input>
+      <input class="task-input-button" type="submit" value="Add task"></input>
+    </div>
+      <div class="tasks-container">
+        <ul class="tasks"></ul>
+      </div>
+    </form>
     <script src="/script.js"></script>
   </body>
 </html>
