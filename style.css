@@ -33,11 +33,6 @@ body {
   scale: 0.8;
 }
 
-/* Form styling */
-form {
-  /* padding: 10px; */
-}
-
 .task-input {
   margin: 0 auto;
   align-items: center;
