@@ -3,24 +3,27 @@ let btn = document.getElementById("switch");
 const heading = document.getElementById("heading");
 const clearAll = document.querySelector(".task-input-clear");
 const addTask = document.querySelector(".task-input-add");
-let taskInput = document.querySelector(".task-input-text");
+const taskInput = document.querySelector(".task-input-text");
 const tasksList = document.querySelector(".tasks");
-let task = document.querySelectorAll("li");
+const taskClear = document.querySelector(".task-clear");
+const task = document.querySelector(".task");
 
 // Button disabled on default
 addTask.disabled = true;
 clearAll.disabled = true;
 
+// Checking if input is not empty
 inputCheck = () => {
   taskInput.onkeyup = function () {
-    taskInput.value.length > 2 && taskInput.value !== ""
+    taskInput.value.length > 2 && taskInput.value.trim() !== ""
       ? (addTask.disabled = false)
       : (addTask.disabled = true);
   };
 };
 inputCheck();
 
-clearCheck = () => {
+// Check if there are tasks to be cleared
+clearAllCheck = () => {
   {
     tasksList.children.length >= 0
       ? (clearAll.disabled = false)
@@ -28,43 +31,66 @@ clearCheck = () => {
   }
 };
 
-clearTask = () => {
-  const taskClear = document.querySelector(".task-clear");
-  taskClear.addEventListener("click", (e) => {
-    // let taskElement = document.querySelector("li");
-    console.log(taskClear.parentElement.parentElement);
-    taskClear.parentElement.parentElement.remove();
-    e.preventDefault();
+// clearTask = () => {
+//   tasksList.addEventListener("click", (e) => {
+//     const task = e.target;
+//     const taskClear = document.querySelectorAll(".task-clear-button");
+//     Array.from(taskClear).forEach(function () {
+//       if (e.target.classList.contains("task-clear-button")) {
+//         e.target.parentElement.parentElement.remove();
+//       }
+//     });
+//     e.preventDefault();
+//   });
+// };
+
+taskButtons = () => {
+  tasksList.addEventListener("click", (e) => {
+    const tasks = document.querySelectorAll(".tasks");
+    Array.from(tasks).forEach(() => {
+      if (e.target.classList.contains("task-complete-button")) {
+        e.target.parentElement.classList.toggle("task-text-done");
+      } else if (e.target.classList.contains("task-clear-button")) {
+        e.target.parentElement.remove(e);
+      }
+      e.preventDefault();
+    });
   });
 };
 
 addTask.addEventListener("click", function (e) {
-  let taskText = document.querySelector(".task-input-text").value;
+  let taskValue = document.querySelector(".task-input-text").value;
   const tasksList = document.querySelector(".tasks");
+  //Creating elements
   const taskElement = document.createElement("li");
   const taskFunctions = document.createElement("div");
   const taskClear = document.createElement("button");
-  const taskEdit = document.createElement("button");
+  const taskComplete = document.createElement("button");
+  const taskText = document.createElement("p");
+  //Adding classes to them
   taskFunctions.classList.add("task-functions");
   taskElement.classList.add("task");
-  taskClear.classList.add("task-clear");
-  taskEdit.classList.add("task-edit");
-  taskElement.innerText = taskText;
+  taskClear.classList.add("task-clear-button");
+  taskComplete.classList.add("task-complete-button");
+  //Appending them
+  taskText.append(taskValue);
   tasksList.append(taskElement);
+  taskElement.append(taskText);
   taskElement.append(taskFunctions);
-  taskFunctions.append(taskClear);
-  taskFunctions.append(taskEdit);
+  taskElement.append(taskClear);
+  taskElement.append(taskComplete);
   taskInput.value = "";
   addTask.disabled = true;
   clearAll.disabled = true;
   console.log(tasksList.children.length);
-  clearCheck();
-  clearTask();
+  clearAllCheck();
+  // clearTask();
+  taskButtons();
   e.preventDefault();
 });
 
+// Clear all tasks function
 clearAll.addEventListener("click", (e) => {
-  const tasksList = document.querySelector(".tasks");
   const confirmClear = () => {
     const response = confirm("Are you sure you wanna clear all?");
     if (response) {

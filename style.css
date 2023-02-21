@@ -87,8 +87,8 @@ button {
   width: 100%;
 }
 
-.task-clear,
-.task-edit {
+.task-clear-button,
+.task-complete-button {
   border: none;
   margin: 5px;
   width: 20px;
@@ -96,10 +96,18 @@ button {
   border-radius: 50px;
 }
 
-.task-clear {
+.task-clear-button {
   background-color: red;
 }
 
-.task-edit {
+.task-complete-button {
   background-color: green;
+}
+
+.task-text-done {
+  text-decoration: line-through;
+}
+
+.remove {
+  display: none;
 }
