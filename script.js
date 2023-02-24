@@ -31,33 +31,17 @@ clearAllCheck = () => {
   }
 };
 
-// clearTask = () => {
-//   tasksList.addEventListener("click", (e) => {
-//     const task = e.target;
-//     const taskClear = document.querySelectorAll(".task-clear-button");
-//     Array.from(taskClear).forEach(function () {
-//       if (e.target.classList.contains("task-clear-button")) {
-//         e.target.parentElement.parentElement.remove();
-//       }
-//     });
-//     e.preventDefault();
-//   });
-// };
+// Complete or clear tasks
+tasksList.addEventListener("click", (e) => {
+  if (e.target.classList.contains("task-complete-button")) {
+    e.target.parentElement.classList.toggle("task-text-done");
+  } else if (e.target.classList.contains("task-clear-button")) {
+    e.target.parentElement.remove();
+  }
+  e.preventDefault();
+});
 
-taskButtons = () => {
-  tasksList.addEventListener("click", (e) => {
-    const tasks = document.querySelectorAll(".tasks");
-    Array.from(tasks).forEach(() => {
-      if (e.target.classList.contains("task-complete-button")) {
-        e.target.parentElement.classList.toggle("task-text-done");
-      } else if (e.target.classList.contains("task-clear-button")) {
-        e.target.parentElement.remove(e);
-      }
-      e.preventDefault();
-    });
-  });
-};
-
+// Add task to list
 addTask.addEventListener("click", function (e) {
   let taskValue = document.querySelector(".task-input-text").value;
   const tasksList = document.querySelector(".tasks");
@@ -84,8 +68,7 @@ addTask.addEventListener("click", function (e) {
   clearAll.disabled = true;
   console.log(tasksList.children.length);
   clearAllCheck();
-  // clearTask();
-  taskButtons();
+  // taskButtons();
   e.preventDefault();
 });
 
