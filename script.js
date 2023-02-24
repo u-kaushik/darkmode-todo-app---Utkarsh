@@ -33,10 +33,20 @@ clearAllCheck = () => {
 
 // Complete or clear tasks
 tasksList.addEventListener("click", (e) => {
+  // Complete button
   if (e.target.classList.contains("task-complete-button")) {
     e.target.parentElement.classList.toggle("task-text-done");
+    // Clear button
   } else if (e.target.classList.contains("task-clear-button")) {
     e.target.parentElement.remove();
+    // Edit button
+  } else if (e.target.classList.contains("task-edit-button")) {
+    const currentTask = e.target.parentElement.getElementsByTagName("p");
+    const task = e.target.parentElement;
+    const newInput = document.createElement("input");
+    newInput.type = "text";
+    const currentInputValue = (currentTask.value = task.innerText);
+    console.log(currentInputValue);
   }
   e.preventDefault();
 });
@@ -50,12 +60,14 @@ addTask.addEventListener("click", function (e) {
   const taskFunctions = document.createElement("div");
   const taskClear = document.createElement("button");
   const taskComplete = document.createElement("button");
+  const taskEdit = document.createElement("button");
   const taskText = document.createElement("p");
   //Adding classes to them
   taskFunctions.classList.add("task-functions");
   taskElement.classList.add("task");
   taskClear.classList.add("task-clear-button");
   taskComplete.classList.add("task-complete-button");
+  taskEdit.classList.add("task-edit-button");
   //Appending them
   taskText.append(taskValue);
   tasksList.append(taskElement);
@@ -63,6 +75,7 @@ addTask.addEventListener("click", function (e) {
   taskElement.append(taskFunctions);
   taskElement.append(taskClear);
   taskElement.append(taskComplete);
+  taskElement.append(taskEdit);
   taskInput.value = "";
   addTask.disabled = true;
   clearAll.disabled = true;
