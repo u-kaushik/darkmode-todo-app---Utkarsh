@@ -7,10 +7,46 @@ const taskInput = document.querySelector(".task-input-text");
 const tasksList = document.querySelector(".tasks");
 const taskClear = document.querySelector(".task-clear");
 const task = document.querySelector(".task");
+const modal = document.getElementById("modal");
+const modalForm = document.getElementById("modal-form");
+const modalSubmit = document.getElementById("modal-submit");
+const modalName = document.getElementById("modal-name");
+const email = document.getElementById("modal-email");
 
-// Button disabled on default
+// Disabled buttons on default
+modalSubmit.disabled = true;
 addTask.disabled = true;
 clearAll.disabled = true;
+
+// Modal appear on delay
+setTimeout((e) => {
+  modal.style.display = "flex";
+}, 3000);
+
+// Submit button disabled if less than 2 characters or empty.
+modal.onkeyup = () => {
+  if (modalName.value.length > 2 && modalName.value.trim() !== "") {
+    modalSubmit.disabled = false;
+  } else {
+    modalSubmit.disabled = true;
+  }
+};
+
+// Email input check
+modalForm.addEventListener("submit", (e) => {
+  const modalEmail = document.getElementById("modal-email");
+  const modalEmailValue = modalEmail.value;
+  const regex =
+    /^[a-zA-Z0-9._%+-]+@(gmail|yahoo|hotmail|outlook|aol|icloud|live|msn)\.(com|org|net|edu|gov|mil|info|biz)$/i;
+  if (!regex.test(modalEmailValue)) {
+    alert("Invalid email");
+    e.preventDefault();
+    return true;
+  } else {
+    alert("GOOD email");
+    return false;
+  }
+});
 
 // Checking if input is not empty
 inputCheck = () => {
@@ -31,26 +67,6 @@ clearAllCheck = () => {
   }
 };
 
-// Complete or clear tasks
-tasksList.addEventListener("click", (e) => {
-  // Complete button
-  if (e.target.classList.contains("task-complete-button")) {
-    e.target.parentElement.classList.toggle("task-text-done");
-    // Clear button
-  } else if (e.target.classList.contains("task-clear-button")) {
-    e.target.parentElement.remove();
-    // Edit button
-  } else if (e.target.classList.contains("task-edit-button")) {
-    const currentTask = e.target.parentElement.getElementsByTagName("p");
-    const task = e.target.parentElement;
-    const newInput = document.createElement("input");
-    newInput.type = "text";
-    const currentInputValue = (currentTask.value = task.innerText);
-    console.log(currentInputValue);
-  }
-  e.preventDefault();
-});
-
 // Add task to list
 addTask.addEventListener("click", function (e) {
   let taskValue = document.querySelector(".task-input-text").value;
@@ -60,14 +76,12 @@ addTask.addEventListener("click", function (e) {
   const taskFunctions = document.createElement("div");
   const taskClear = document.createElement("button");
   const taskComplete = document.createElement("button");
-  const taskEdit = document.createElement("button");
   const taskText = document.createElement("p");
   //Adding classes to them
   taskFunctions.classList.add("task-functions");
   taskElement.classList.add("task");
   taskClear.classList.add("task-clear-button");
   taskComplete.classList.add("task-complete-button");
-  taskEdit.classList.add("task-edit-button");
   //Appending them
   taskText.append(taskValue);
   tasksList.append(taskElement);
@@ -75,14 +89,24 @@ addTask.addEventListener("click", function (e) {
   taskElement.append(taskFunctions);
   taskElement.append(taskClear);
   taskElement.append(taskComplete);
-  taskElement.append(taskEdit);
   taskInput.value = "";
   addTask.disabled = true;
   clearAll.disabled = true;
   console.log(tasksList.children.length);
   clearAllCheck();
-  // taskButtons();
   e.preventDefault();
+});
+
+// Complete or clear tasks
+tasksList.addEventListener("click", (e) => {
+  // Complete button
+  if (e.target.classList.contains("task-complete-button")) {
+    e.target.parentElement.classList.toggle("task-text-done");
+    e.preventDefault();
+    // Clear button
+  } else if (e.target.classList.contains("task-clear-button")) {
+    e.target.parentElement.remove();
+  }
 });
 
 // Clear all tasks function
