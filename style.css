@@ -126,12 +126,28 @@ button {
   border-radius: 50px;
   border: solid black 2px;
   height: 250px;
-  align-items: center;
-  top: 0;
-  bottom: 0;
-  margin: auto;
   background: grey;
   display: none;
+  left: 30%;
+  top: 20%;
+  position: absolute;
+}
+
+#modal-message {
+  font-size: 18px;
+  margin: 10px auto;  
+  width: 300px;
+  font-weight: bold;
+}
+
+#modal-close-button {
+  color: black;
+  background: none;
+  border: none;
+  width: 20px;
+  position: absolute;
+  top: 15px;
+  right: 25px;
 }
 
 #modal form {

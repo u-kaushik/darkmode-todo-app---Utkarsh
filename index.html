@@ -30,14 +30,16 @@
       </div>      
     </form>
     <div id="modal">
-      <form id="modal-form">
-        <label for="name">Name</label>
-        <input type="text" id="modal-name" name="name" required placeholder="John"></input>
-        <label for="email">Email</label>
-        <input type="email" id="modal-email" name="email" required placeholder="john@gmail.com"></input>
-        <input type="submit" id="modal-submit"></input>
+      <div id="modal-message">Please enter your name & email to get unlimited access</div>
+      <button id="modal-close-button">X</button>
+      <form id="modal-form">      
+          <label for="name">Name</label>
+          <input type="text" id="modal-name" name="name" required placeholder="John"></input>
+          <label for="email">Email</label>
+          <input type="email" id="modal-email" name="email" required placeholder="john@gmail.com"></input>
+          <input type="submit" id="modal-submit"></input>
         <div class="modal-accept">
-          <input type="checkbox" name="agree"> I agree to receive marketing and promotional information.</input>
+          <input type="checkbox" name="agree" required> I have read and agree to the terms & conditions.</input>
         </div>
     </form>
   </div>

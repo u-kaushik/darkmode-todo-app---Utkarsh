@@ -8,6 +8,7 @@ const tasksList = document.querySelector(".tasks");
 const taskClear = document.querySelector(".task-clear");
 const task = document.querySelector(".task");
 const modal = document.getElementById("modal");
+const modalClose = document.getElementById("modal-close-button");
 const modalForm = document.getElementById("modal-form");
 const modalSubmit = document.getElementById("modal-submit");
 const modalName = document.getElementById("modal-name");
@@ -20,8 +21,13 @@ clearAll.disabled = true;
 
 // Modal appear on delay
 setTimeout((e) => {
-  modal.style.display = "flex";
+  modal.style.display = "block";
 }, 3000);
+
+// Modal close on x click
+modalClose.addEventListener("click", function () {
+  modal.style.display = "none";
+});
 
 // Submit button disabled if less than 2 characters or empty.
 modal.onkeyup = () => {
@@ -32,18 +38,24 @@ modal.onkeyup = () => {
   }
 };
 
-// Email input check
+// // Email input check
 modalForm.addEventListener("submit", (e) => {
+  e.preventDefault();
   const modalEmail = document.getElementById("modal-email");
   const modalEmailValue = modalEmail.value;
   const regex =
     /^[a-zA-Z0-9._%+-]+@(gmail|yahoo|hotmail|outlook|aol|icloud|live|msn)\.(com|org|net|edu|gov|mil|info|biz)$/i;
   if (!regex.test(modalEmailValue)) {
     alert("Invalid email");
-    e.preventDefault();
     return true;
   } else {
-    alert("GOOD email");
+    // Name input from form & display on submission
+    const modalFormData = new FormData(modalForm);
+    const firstName = modalFormData.get("name");
+    const modalMsg = document.getElementById("modal-message");
+    modalMsg.innerHTML = `<h2>Thanks ${firstName}. We'll be in touch.</h2>`
+    modalForm.style.display = "none";
+    e.preventDefault();
     return false;
   }
 });
